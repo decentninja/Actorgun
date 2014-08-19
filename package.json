@@ -8,5 +8,8 @@
     "gulp": "^3.8.7",
     "gulp-download-atom-shell": "0.0.4",
     "gulp-shell": "^0.2.9"
+  },
+  "devDependencies": {
+    "gulp-jasmine": "^1.0.0"
   }
 }
