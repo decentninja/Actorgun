@@ -1,0 +1,12 @@
+{
+  "name": "Gluegun",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "sootn",
+  "dependencies": {
+    "gulp": "^3.8.7",
+    "gulp-download-atom-shell": "0.0.4",
+    "gulp-shell": "^0.2.9"
+  }
+}
