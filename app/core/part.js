@@ -3,17 +3,25 @@ var Connection = require("./connection")
 function Part() {}
 
 Part.prototype.init = function() {
+	if(this.full()) {
+		this.run()
+	}
+}
+
+Part.prototype.full = function() {
 	for(var key in this.inputs) {
 		if(this.inputs[key].data == null) {
-			return
+			return false
 		}
 	}
-	this.run()
+	return true
 }
 
 Part.prototype.fill = function(inputname, data) {
 	this.inputs[inputname].data = data
-	this.run()
+	if(this.full()) {
+		this.run()
+	}
 }
 
 Part.prototype.connect = function(from, part, to) {
