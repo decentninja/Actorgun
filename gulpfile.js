@@ -15,5 +15,7 @@ gulp.task("demo", shell.task([
 ]))
 
 gulp.task('test', function () {
-    return gulp.src('tests/core.js').pipe(jasmine())
+    return gulp.src('tests/core.js').pipe(jasmine({
+    	includeStackTrace: true
+    }))
 })
