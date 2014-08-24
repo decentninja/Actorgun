@@ -16,24 +16,26 @@ function createAdd() {
 	)
 }
 
-describe("Javascript Parts", function() {
-	function eventually(obj, field, be, done) {
-		var timeout = 500
-		function loop() {
-			if(obj[field] == be) {
-				done()
+function eventually(obj, field, be, done) {
+	var timeout = 500
+	function loop() {
+		if(obj[field] == be) {
+			done()
+		} else {
+			timeout -= 5
+			if(timeout > 0) {
+				setTimeout(loop, 5)
 			} else {
-				timeout -= 5
-				if(timeout > 0) {
-					setTimeout(loop, 5)
-				} else {
-					expect(obj[field]).toEqual(be)
-					done()
-				}
+				expect(obj[field]).toEqual(be)
+				done()
 			}
 		}
-		loop()
 	}
+	loop()
+}
+
+describe("Javascript Parts", function() {
+
 	it("it runs javascript", function(done) {
 		var add = createAdd()
 		add.init()
@@ -74,7 +76,7 @@ describe("Javascript Parts", function() {
 })
 
 describe("Part Parts", function() {
-	it("connects parts", function() {
+	it("connects parts", function(done) {
 		var add1 = createAdd()
 		add1.init()
 		add1.fill("a", 1)
@@ -85,6 +87,7 @@ describe("Part Parts", function() {
 		partpart.init()
 		partpart.connect(add1, "c", add2, "b")
 		partpart.fill("b", 5)
+		eventually(partpart.outputs.c, "data", 8, done)
 	})
 	it("connects parts of parts")
 	it("disconnects parts")

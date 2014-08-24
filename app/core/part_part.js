@@ -10,8 +10,8 @@ function PartPart(name, parts) {
 		parts.forEach(function(part) {
 			this.addPart(part, true)
 		}, this)
-		this.calculate_ports()
 	}
+	this.calculate_ports()
 }
 
 PartPart.prototype = new Part()
