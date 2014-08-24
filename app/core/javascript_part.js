@@ -5,22 +5,28 @@ function JavascriptPart(name, inputs, outputs, update) {
 	this.inputs = inputs
 	this.outputs = outputs
 	this.update = update
+	this.parent = null
 }
 
 JavascriptPart.prototype = new Part()
 
 JavascriptPart.prototype.run = function() {
-	var arguments = []
+	var args = []
 	for(var key in this.inputs) {
-		arguments.push(this.inputs[key].data)
+		args.push(this.inputs[key].data)
 	}
-	this.update.apply(this, arguments)
+	var that = this
+	setTimeout(function() {
+		that.update.apply(that, args)
+	}, 0)
 }
 
 // To be used from inside update to send signal
 JavascriptPart.prototype.send = function(out, data) {
 	this.outputs[out].data = data
-	this.outputs[out].trigger()
+	if(this.parent) {
+		this.parent.newdata(this, out, data)
+	}
 }
 
 module.exports = JavascriptPart

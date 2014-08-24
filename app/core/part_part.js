@@ -1,28 +1,86 @@
-function PartPart(name, parts) {
-	this.parts = parts
-	this.calculate_ports()
-}
-PartPart.prototype = Object.create(Part.prototype)
+var Part = require("./part")
+var Output = require("./output")
+var Input = require("./input")
 
-PartPart.prototype.calculate_ports = function() {
-	this.inputs = []
-	this.outputs = []
-	this.parts.forEach(function(part) {
-		part.inputs.forEach(function(input) {
-			if(!input.isConnected) {
-				this.inputs.push(input)
-			}
-		})
-		part.outputs.forEach(function(output) {
-			if(outputs.connections.length !== 0) {
-				this.outputs.push(output)
-			}
-		})
-	}, this)
+function PartPart(name, parts) {
+	this.name = name
+	this.parts = {}
+	this.connections = {}		// {partid: {outputname: {partid: partid, input: inputname}}}
+	if(parts) {
+		parts.forEach(function(part) {
+			this.addPart(part, true)
+		}, this)
+		this.calculate_ports()
+	}
 }
+
+PartPart.prototype = new Part()
 
 PartPart.prototype.run = function() {
-	
+	// Should be empty right?
+}
+
+PartPart.prototype.addPart = function(part, nocalcport) {
+	this.parts[part.id] = part
+	part.parent = this
+	this.connections[part.id] = {}
+	if(!nocalcport) {
+		this.calculate_ports()
+	}
+}
+
+PartPart.prototype.connect = function(partA, output, partB, input) {
+	this.connections[partA.id][output] = {
+		partid: partB.id,
+		input: input
+	}
+	var data = partA.outputs[output].data
+	if(data) {
+		partB.fill(input, data)
+	}
+	this.calculate_ports()
+}
+
+PartPart.prototype.calculate_ports = function() {
+	this.inputs = {}
+	this.outputs = {}
+	for(var partid in this.connections) {
+		record = this.connections[partid]
+		for(var outputname in record) {
+			var con = record[outputname]
+			this.parts[partid].outputs[outputname].connected = true
+			this.parts[partid].inputs[con.input].connected = true
+		}
+	}
+	for(var partid in this.parts) {
+		var part = this.parts[partid]
+		for(var outname in part.outputs) {
+			var output = part.outputs[outname]
+			if(output.connected) {
+				delete output.connected
+				this.outputs[outname] = output.copy()
+			}
+		}
+		for(var inname in part.inputs) {
+			var input = part.inputs[inname]
+			if(input.connected) {
+				delete input.connected
+				this.inputs[inname] = input.copy()
+			}
+		}
+	}
+}
+
+PartPart.prototype.newdata = function(part, output, data) {
+	var con = this.connections[part.id][output]
+	if(con) {
+		this.parts[con.partid][con.input].data = data
+	} else {
+		this.outputs[output].data = data
+		if(this.parent) {
+			this.parent.newdata(this, output, data)
+		}
+	}
 }
 
 module.exports = PartPart

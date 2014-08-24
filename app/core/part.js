@@ -1,11 +1,13 @@
-var Connection = require("./connection")
-
 function Part() {}
+
+var nParts = 0
 
 Part.prototype.init = function() {
 	if(this.full()) {
 		this.run()
 	}
+	this.id = nParts
+	nParts++
 }
 
 Part.prototype.full = function() {
@@ -22,11 +24,6 @@ Part.prototype.fill = function(inputname, data) {
 	if(this.full()) {
 		this.run()
 	}
-}
-
-Part.prototype.connect = function(from, part, to) {
-	this.outputs[from].connections.push(new Connection(part, to))
-	this.outputs[from].trigger()
 }
 
 module.exports = Part
