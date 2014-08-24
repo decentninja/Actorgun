@@ -74,7 +74,7 @@ PartPart.prototype.calculate_ports = function() {
 PartPart.prototype.newdata = function(part, output, data) {
 	var con = this.connections[part.id][output]
 	if(con) {
-		this.parts[con.partid][con.input].data = data
+		this.parts[con.partid].fill(con.input, data)
 	} else {
 		this.outputs[output].data = data
 		if(this.parent) {

@@ -69,6 +69,8 @@ describe("Javascript Parts", function() {
 		to10.init()
 		eventually(to10.outputs.a, "data", 10, done)
 	})
+	it("runs destructors on fill or delete")
+	it("has html content")
 })
 
 describe("Part Parts", function() {
@@ -86,7 +88,8 @@ describe("Part Parts", function() {
 	})
 	it("connects parts of parts")
 	it("disconnects parts")
+	it("inherits html content")
+	it("can turn html content on and off")
 	it("pauses parts")
 	it("manually steps parts")
-	it("has html content")
 })
