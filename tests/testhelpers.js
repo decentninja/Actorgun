@@ -1,6 +1,7 @@
 var core = require("../app/core")
 
 function create_add() {
+	// javascriptPart with nothing filled
 	return new core.JavascriptPart(
 		"Add",
 		{
@@ -14,6 +15,20 @@ function create_add() {
 			this.send('c', a + b)
 		}
 	)
+}
+
+function create_partpart() {
+	// PartPart with b in and c out. in the end it adds 3.
+	var add1 = create_add()
+	add1.init()
+	add1.fill("a", 1)
+	var add2 = create_add()
+	add2.init()
+	add2.fill("a", 2)
+	var partpart = new core.PartPart("Add3", [add1, add2])
+	partpart.init()
+	partpart.connect(add1, "c", add2, "b")
+	return partpart
 }
 
 function eventually(obj, field, be, done) {
@@ -36,5 +51,6 @@ function eventually(obj, field, be, done) {
 
 module.exports = {
 	create_add: create_add,
+	create_partpart: create_partpart,
 	eventually: eventually
 }

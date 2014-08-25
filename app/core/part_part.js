@@ -59,7 +59,13 @@ PartPart.prototype.calculate_ports = function() {
 			var input = part.inputs[inname]
 			if(input.connected) {
 				delete input.connected
-				this.internal_connections[inname] = part
+				var newname = inname
+				var n = 2
+				while(this.internal_connections[newname]) {
+					newname += n
+					n++
+				}
+				this.internal_connections[newname] = part
 				this.inputs[inname] = input.copy()
 			}
 		}
@@ -67,14 +73,23 @@ PartPart.prototype.calculate_ports = function() {
 			var output = part.outputs[outname]
 			if(output.connected) {
 				delete output.connected
-				this.internal_connections[outname] = part
-				this.outputs[outname] = output.copy()
+				var newname = outname
+				var n = 2
+				while(this.internal_connections[newname]) {
+					newname += n
+					n++
+				}
+				this.outputs[newname] = output.copy()
 			}
 		}
 	}
 }
 
 PartPart.prototype.fill = function(inputname, data) {
+	if(!this.inputs[inputname]) {
+		console.log("bdf", inputname, data)
+		console.log(this)
+	}
 	this.inputs[inputname].data = data
 	this.internal_connections[inputname].fill(inputname, data)
 }
