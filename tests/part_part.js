@@ -15,7 +15,10 @@ describe("Part Parts", function() {
 		partpart1.fill("b", 10)
 		testhelpers.eventually(partpart1.outputs.c, "data", 16, done)
 	})
-	it("disconnects parts")
+	it("disconnects parts", function() {
+		var partpart = testhelpers.create_partpart()
+		
+	})
 	it("inherits html content")
 	it("can turn html content on and off")
 	it("pauses parts")

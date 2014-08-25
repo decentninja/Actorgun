@@ -38,5 +38,5 @@ describe("Javascript Parts", function() {
 		testhelpers.eventually(to10.outputs.a, "data", 10, done)
 	})
 	it("runs destructors on fill or delete")
-	it("has html content")
+	it("updates html content")
 })
