@@ -44,31 +44,39 @@ PartPart.prototype.connect = function(partA, output, partB, input) {
 PartPart.prototype.calculate_ports = function() {
 	this.inputs = {}
 	this.outputs = {}
+	this.internal_connections = {}
 	for(var partid in this.connections) {
 		record = this.connections[partid]
 		for(var outputname in record) {
 			var con = record[outputname]
-			this.parts[partid].outputs[outputname].connected = true
 			this.parts[partid].inputs[con.input].connected = true
+			this.parts[partid].outputs[outputname].connected = true
 		}
 	}
 	for(var partid in this.parts) {
 		var part = this.parts[partid]
-		for(var outname in part.outputs) {
-			var output = part.outputs[outname]
-			if(output.connected) {
-				delete output.connected
-				this.outputs[outname] = output.copy()
-			}
-		}
 		for(var inname in part.inputs) {
 			var input = part.inputs[inname]
 			if(input.connected) {
 				delete input.connected
+				this.internal_connections[inname] = part
 				this.inputs[inname] = input.copy()
 			}
 		}
+		for(var outname in part.outputs) {
+			var output = part.outputs[outname]
+			if(output.connected) {
+				delete output.connected
+				this.internal_connections[outname] = part
+				this.outputs[outname] = output.copy()
+			}
+		}
 	}
+}
+
+PartPart.prototype.fill = function(inputname, data) {
+	this.inputs[inputname].data = data
+	this.internal_connections[inputname].fill(inputname, data)
 }
 
 PartPart.prototype.newdata = function(part, output, data) {
