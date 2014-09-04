@@ -1,5 +1,5 @@
 var core = require("../app/core")
 
 describe("Part", function() {
-	it("can set documentation")
+	it("can have and set documentation")
 })

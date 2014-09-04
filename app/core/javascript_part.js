@@ -3,6 +3,9 @@ var Part = require("./part")
 function JavascriptPart(name, inputs, outputs, update) {
 	this.name = name
 	this.inputs = inputs
+	for(var inputname in inputs) {
+		inputs[inputname].javascript_part = this
+	}
 	this.outputs = outputs
 	this.update = update
 	this.parent = null

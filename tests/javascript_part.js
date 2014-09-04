@@ -39,4 +39,5 @@ describe("Javascript Parts", function() {
 	})
 	it("runs destructors on fill or delete")
 	it("updates html content")
+	it("can add inputs and outputs to itself")	// example math may want to have x inputs as you add unknown to the equation
 })
