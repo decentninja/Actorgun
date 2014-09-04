@@ -5,7 +5,11 @@ function InternalPart(javascript) {
 }
 
 InternalPart.prototype.send = function(outputname, data) {
-	this.parent.outputs[outputname].fill(data)
+	this.parent.outputs.forEach(function(output) {
+		if(output.name == outputname) {
+			output.fill(data)
+		}
+	})
 }
 
 InternalPart.prototype.receive = function(inputname, callback) {
