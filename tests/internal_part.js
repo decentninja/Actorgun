@@ -28,6 +28,5 @@ describe("Internal Parts", function() {
 		testhelpers.eventually(to10.outputs[0], "data", 10, done)
 	})
 	it("runs destructors")
-	it("updates html content")
 	it("can add inputs and outputs to itself")	// example math may want to have x inputs as you add unknown to the equation
 })
