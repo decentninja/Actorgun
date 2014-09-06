@@ -1,17 +1,18 @@
-function Input(type, default_value) {
-	this.type = type
+function Input(name, default_value) {
+	this.name = name
+	this.parent = null
 	this.data = default_value || null
-	this.javascript_part = null	// Inputs can exist in multiple partpart but only one javascript part, this is that part.
 }
 
+
+// Called by html representation or other parts
 Input.prototype.fill = function(data) {
-	// TODO type safety?
 	this.data = data
-	this.javascript_part.run()
+	var that = this
+	setTimeout(function() {
+		that.parent.trigger(that.name, that.data)
+	}, 0)
 }
 
-Input.prototype.copy = function() {
-	return new Input(this.type, this.data)
-}
 
 module.exports = Input

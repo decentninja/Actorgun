@@ -1,3 +1,3 @@
 require("./part")
-require("./javascript_part")
+require("./internal_part")
 require("./part_part")

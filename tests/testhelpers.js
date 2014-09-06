@@ -1,34 +1,36 @@
 var core = require("../app/core")
 
+var n = 0
+
 function create_add() {
 	// javascriptPart with nothing filled
-	return new core.JavascriptPart(
-		"Add",
-		{
-			a: new core.Input("number"), 
-			b: new core.Input("number")
-		},
-		{
-			c: new core.Output("number")
-		},
-		function(a, b) {
-			this.send('c', a + b)
+	var part = new core.InternalPart(
+		[new core.Input("a", 0), new core.Input("b", 0)],
+		[new core.Output("c")],
+		function() {
+			var a, b
+			var that = this
+			function update() {
+				if(a && b) {
+					that.send("c", a + b)
+				}
+			}
+			this.receive("a", function(aa) {
+				a = aa
+				update()
+			})
+			this.receive("b", function(bb) {
+				b = bb
+				update()
+			})
 		}
 	)
+	part.debugid = n++
+	return part
 }
 
 function create_partpart() {
-	// PartPart with b in and c out. in the end it adds 3.
-	var add1 = create_add()
-	add1.init()
-	add1.fill("a", 1)
-	var add2 = create_add()
-	add2.init()
-	add2.fill("a", 2)
-	var partpart = new core.PartPart("Add3", [add1, add2])
-	partpart.init()
-	partpart.connect(add1, "c", add2, "b")
-	return partpart
+	return new core.PartPart("Advanced Super 2000", [create_add(), create_add()])
 }
 
 function eventually(obj, field, be, done) {
