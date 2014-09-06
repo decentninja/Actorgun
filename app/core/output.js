@@ -1,3 +1,4 @@
+
 function Output(name) {
 	this.name = name
 	this.data = null

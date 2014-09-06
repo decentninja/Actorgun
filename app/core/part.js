@@ -40,7 +40,9 @@ Part.prototype.addInput = function(input, owner) {
 Part.prototype.removeInput = function(input) {
 	this.on_save.major = true
 	var i = this.inputs.indexOf(input)
-	this.inputs.splice(i, 1)
+	if(i != -1) {
+		this.inputs.splice(i, 1)
+	}
 }
 
 Part.prototype.addOutput = function(output, owner) {
@@ -54,7 +56,9 @@ Part.prototype.addOutput = function(output, owner) {
 Part.prototype.removeOutput = function(output) {
 	this.on_save.major = true
 	var i = this.outputs.indexOf(output)
-	this.outputs.splice(i, 1)
+	if(i != -1) {
+		this.outputs.splice(i, 1)
+	}
 }
 
 Part.prototype.release = function() {
