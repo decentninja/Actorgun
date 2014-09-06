@@ -1,9 +1,10 @@
+var Interface = require("./interface")
 
 function Output(name) {
-	this.name = name
-	this.data = null
-	this.connections = []		// Inputs
+	this.create(name)
 }
+
+Output.prototype = new Interface()
 
 Output.prototype.connect = function(input) {
 	this.connections.push(input)
