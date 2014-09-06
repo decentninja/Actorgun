@@ -17,8 +17,15 @@ Output.prototype.connect = function(input) {
 	}
 }
 
-Output.prototype.disconnects = function(input) {
-	// blabla and adds it self up the parent chain
+Output.prototype.disconnect = function(input) {
+	var index = this.connections.indexOf(input)
+	this.connections.splice(index, 1)
+	var parent = this.parent.parent
+	while(parent) {
+		parent.addInput(input, false)
+		parent.addOutput(this, false)
+		parent = parent.parent
+	}
 }
 
 Output.prototype.fill = function(data) {

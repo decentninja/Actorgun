@@ -31,17 +31,23 @@ describe("Part Parts", function() {
 		})
 		testhelpers.eventually(partpart3.outputs[0], "data", 15, done)
 	})
-	xit("disconnects parts", function(done) {
-		// Disconnects parts so that there are two outputs c and c2. c will be 1000
+	it("disconnects parts", function(done) {
 		var partpart = testhelpers.create_partpart()
-		var parts = []
-		for(var partid in partpart.parts) {
-			parts.push(partpart.parts[partid])
-		}
-		partpart.disconnect(parts[0], "c", parts[1], "b")
-		partpart.fill("b", 999)
-		testhelpers.eventually(partpart.outputs.c, "data", 1000, done)
+		partpart.parts[0].outputs[0].connect(partpart.parts[1].inputs[0])
+		expect(partpart.inputs.length).toBe(3)
+		expect(partpart.outputs.length).toBe(1)
+		partpart.inputs[0].fill(1)
+		partpart.inputs[1].fill(2)
+		partpart.inputs[2].fill(3)
+		setTimeout(function() {
+			partpart.parts[0].outputs[0].disconnect(partpart.parts[1].inputs[0])
+			expect(partpart.inputs.length).toBe(4)
+			expect(partpart.outputs.length).toBe(2)
+			partpart.inputs[0].fill(1000)
+			testhelpers.eventually(partpart.outputs[0], "data", 6, done)
+		}, 0)
 	})
+	it("can remove part")
 	it("can connect one output to two inputs")
 	it("already connected parts from the outside gets disconnected when same name gets degraded from name extension like 2")
 	it("inherits html content")
