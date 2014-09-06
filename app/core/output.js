@@ -14,7 +14,7 @@ Output.prototype.connect = function(input) {
 		parent = parent.parent
 	}
 	if(this.data) {
-		input.fill(data)
+		input.fill(this.data)
 	}
 }
 

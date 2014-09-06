@@ -17,6 +17,18 @@ describe("Part Parts", function() {
 		partpart.inputs[2].fill(3)
 		testhelpers.eventually(partpart.outputs[0], "data", 6, done)
 	})
+	it("propagates data on connection", function(done) {
+		var partpart = testhelpers.create_partpart()
+		partpart.inputs[0].fill(1)
+		partpart.inputs[1].fill(2)
+		setTimeout(function() {
+			partpart.parts[0].outputs[0].connect(partpart.parts[1].inputs[0])
+			expect(partpart.inputs.length).toBe(3)
+			expect(partpart.outputs.length).toBe(1)
+			partpart.inputs[2].fill(3)
+			testhelpers.eventually(partpart.outputs[0], "data", 6, done)
+		}, 0)
+	})
 	it("connects parts of parts of parts", function(done) {
 		var partpart1 = testhelpers.create_partpart()
 		partpart1.parts[0].outputs[0].connect(partpart1.parts[1].inputs[0])
