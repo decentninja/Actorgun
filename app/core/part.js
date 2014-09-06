@@ -85,11 +85,13 @@ Part.prototype.save = function() {
 }
 
 Part.prototype.get = function(inputname) {
+	var ret
 	this.inputs.forEach(function(input) {
 		if(input.name == inputname) {
-			return input.data
+			ret = input.data
 		}
 	})
+	return ret
 }
 
 

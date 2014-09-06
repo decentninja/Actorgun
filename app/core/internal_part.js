@@ -19,6 +19,13 @@ InternalPart.prototype.send = function(outputname, data) {
 
 InternalPart.prototype.receive = function(inputname, callback) {
 	this.receivers[inputname] = callback
+	var data = this.get(inputname)
+	var that = this
+	if(data) {
+		setTimeout(function() {
+			that.trigger(inputname, data)
+		}, 0)
+	}
 }
 
 InternalPart.prototype.trigger = function(inputname, data) {

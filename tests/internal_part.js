@@ -27,6 +27,10 @@ describe("Internal Parts", function() {
 		)
 		testhelpers.eventually(to10.outputs[0], "data", 10, done)
 	})
+	it("triggers at registration there is a value in data", function(done) {
+		var add = testhelpers.create_add()
+		testhelpers.eventually(add.outputs[0], "data", 2, done)
+	})
 	it("runs destructors")
 	it("can add inputs and outputs to itself")	// example math may want to have x inputs as you add unknown to the equation
 })
