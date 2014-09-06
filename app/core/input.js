@@ -2,6 +2,7 @@ function Input(name, default_value) {
 	this.name = name
 	this.parent = null
 	this.data = default_value || null
+	this.connections = []
 }
 
 

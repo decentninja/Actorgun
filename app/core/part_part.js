@@ -24,6 +24,15 @@ PartPart.prototype.addPart = function(part) {
 
 PartPart.prototype.removePart = function(part) {
 	// makes sure that all inputs and outputs have no other references
+	var i = this.parts.indexOf(part)
+	this.parts[i].inputs.forEach(function(input) {
+		input.connections.forEach(function(connection) {
+			connection.disconnect(input)
+		}, this)
+	})
+	this.parts[i].outputs = []
+	this.parts[i].inputs = []
+	this.parts.splice(i, 1)
 }
 
 

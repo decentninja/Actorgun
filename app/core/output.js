@@ -7,6 +7,7 @@ function Output(name) {
 Output.prototype.connect = function(input) {
 	this.connections.push(input)
 	var parent = this.parent.parent
+	input.connections.push(this)
 	while(parent) {
 		parent.removeInput(input)
 		parent.removeOutput(this)
@@ -19,6 +20,8 @@ Output.prototype.connect = function(input) {
 
 Output.prototype.disconnect = function(input) {
 	var index = this.connections.indexOf(input)
+	var jndex = this.connections[index].connections.indexOf(this)
+	this.connections[index].connections.splice(jndex, 1)
 	this.connections.splice(index, 1)
 	var parent = this.parent.parent
 	while(parent) {
