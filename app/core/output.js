@@ -1,22 +1,26 @@
 var Interface = require("./interface")
 
-function Output(name) {
-	this.create(name)
+function Output(name, type) {
+	this.create(name, type)
 }
 
 Output.prototype = new Interface()
 
 Output.prototype.connect = function(input) {
-	this.connections.push(input)
-	var parent = this.parent.parent
-	input.connections.push(this)
-	while(parent) {
-		parent.removeInput(input)
-		parent.removeOutput(this)
-		parent = parent.parent
-	}
-	if(this.data) {
-		input.fill(this.data)
+	if(this.type === input.type) {
+		this.connections.push(input)
+		var parent = this.parent.parent
+		input.connections.push(this)
+		while(parent) {
+			parent.removeInput(input)
+			parent.removeOutput(this)
+			parent = parent.parent
+		}
+		if(this.data) {
+			input.fill(this.data)
+		}
+	} else {
+		throw new TypeError(this.type + " != " + input.type)
 	}
 }
 

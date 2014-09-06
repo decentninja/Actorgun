@@ -1,7 +1,7 @@
 var Interface = require("./interface")
 
-function Input(name, default_value) {
-	this.create(name)
+function Input(name, type, default_value) {
+	this.create(name, type)
 	if(default_value !== undefined) {
 		this.data = default_value
 	}

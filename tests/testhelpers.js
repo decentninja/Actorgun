@@ -5,8 +5,8 @@ var n = 0
 function create_add() {
 	// javascriptPart with nothing filled
 	var part = new core.InternalPart(
-		[new core.Input("a", 1), new core.Input("b", 1)],
-		[new core.Output("c")],
+		[new core.Input("a", "number", 1), new core.Input("b", "number", 1)],
+		[new core.Output("c", "number")],
 		function() {
 			var a, b
 			var that = this
