@@ -1,9 +1,8 @@
 var Menu = require("menu")
 var BrowserWindow = require("browser-window")
 
-function Topmenu(app, gluegun) {
+function Topmenu(app) {
 	this.app = app
-	this.gluegun = gluegun
 	var that = this
 	Menu.setApplicationMenu(Menu.buildFromTemplate([
 	  {
@@ -49,23 +48,20 @@ function Topmenu(app, gluegun) {
 	  			label: "New Part",
 	  			accelerator: "Command+N",
 	  			click: function() {
-	  				that.gluegun.new()
+	  				that.new()
 	  			}
 	  		},
 	  		{
 	  			label: "Open...",
 	  			accelerator: "Command+O",
 	  			click: function() {
-	  				that.gluegun.open()
+	  				that.open()
 	  			}
 	  		},
 	  		{
 	  			label: "Close Part",
 	  			accelerator: "Command+W",
-	  			click: function() {
-	  				console.log("HI")
-	  				that.close()
-	  			}
+	  			selector: 'performClose:'
 	  		}
 	  	]
 	  },
@@ -121,7 +117,7 @@ function Topmenu(app, gluegun) {
 	        label: 'Toggle DevTools',
 	        accelerator: 'Alt+Command+I',
 	        click: function() {
-	        	that.devtools
+	        	that.devtools()
 	        }
 	      },
 	    ]
@@ -133,11 +129,6 @@ function Topmenu(app, gluegun) {
 	        label: 'Minimize',
 	        accelerator: 'Command+M',
 	        selector: 'performMiniaturize:'
-	      },
-	      {
-	        label: 'Close',
-	        accelerator: 'Command+W',
-	        selector: 'performClose:'
 	      },
 	      {
 	        type: 'separator'
@@ -155,11 +146,20 @@ Topmenu.prototype.quit = function() {
 	this.app.quit()
 }
 
+Topmenu.prototype.new = function() {
+	window = new BrowserWindow({
+		width: 800,
+		height: 800
+	})
+	window.loadUrl("file://#1/index.html".replace("#1", __dirname))
+}
+
 Topmenu.prototype.reload = function() {
 	BrowserWindow.getFocusedWindow().reloadIgnoringCache()
 }
 
 Topmenu.prototype.devtools = function() {
+	console.log("df")
 	BrowserWindow.getFocusedWindow().toggleDevTools()
 }
 
