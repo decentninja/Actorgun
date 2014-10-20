@@ -1,0 +1,28 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<polymer-element name="drag-able" draggable="true" on-dragstart="{{start}}" on-dragend="{{end}}" attributes="x y">
+	<template>
+		<style>
+			:host {
+				display: inline-block;
+				position: absolute;
+			}
+		</style>
+		<content></content>
+	</template>
+	<script>
+		Polymer({
+			x: 0,
+			y: 0,
+			end: function(e) {
+				console.log(e)
+				console.log(this.offsetHeight)
+				if(e.x != 0) {
+					this.x += e.offsetX
+					this.y += e.offsetY - this.offsetHeight 
+					this.style.top = this.y + "px"
+					this.style.left = this.x + "px"
+				}
+			}
+		})
+	</script>
+</polymer-element>
