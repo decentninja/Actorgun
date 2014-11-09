@@ -1,10 +1,10 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 
-<polymer-element name="block-part">
+<polymer-element name="block-part" attributes="part">
 	<template>
 		<link rel="stylesheet" href="block-part.css">
 		<div class="title">
-			{{name || "Name"}}
+			{{part.name || "Name"}}
 		</div>
 	</template>
 	<script>

@@ -14,8 +14,8 @@
 			<template repeat="{{column in columns}}">
 				<section class="column">
 					<div vertical layout>
-						<template repeat="{{part in column}}">
-							<block-part part="{{part}}"></block-part>
+						<template repeat="{{subpart in column}}">
+							<block-part part="{{subpart}}"></block-part>
 						</template>
 					</div>
 				</section>
