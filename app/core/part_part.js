@@ -1,9 +1,12 @@
-var Part = require("./part")
+if(typeof window === "undefined") {
+	var Part = require("./part")
+}
 
 
 function PartPart(name, parts) {
 	this.create(name)
 	this.parts = []
+	parts = parts || []
 	parts.forEach(function(part) {
 		this.addPart(part)
 	}, this)

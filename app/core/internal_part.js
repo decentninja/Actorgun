@@ -1,4 +1,6 @@
-var Part = require("./part")
+if(typeof window === "undefined") {
+	var Part = require("./part")
+}
 
 
 function InternalPart(inputs, outputs, code) {

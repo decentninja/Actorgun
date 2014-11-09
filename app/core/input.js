@@ -1,4 +1,6 @@
-var Interface = require("./interface")
+if(typeof window === "undefined") {
+	var Interface = require("./interface")
+}
 
 function Input(name, type, default_value) {
 	this.create(name, type)

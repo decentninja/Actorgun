@@ -159,7 +159,6 @@ Topmenu.prototype.reload = function() {
 }
 
 Topmenu.prototype.devtools = function() {
-	console.log("df")
 	BrowserWindow.getFocusedWindow().toggleDevTools()
 }
 

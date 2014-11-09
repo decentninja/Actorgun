@@ -6,7 +6,7 @@ var less = require("gulp-less")
 var path = require("path")
 var sourcemaps = require("gulp-sourcemaps")
 var watch = require("gulp-watch")
-var plumber = require('gulp-plumber');
+var plumber = require('gulp-plumber')
 
 gulp.task("install", function(cb) {
 	downloadatomshell({
