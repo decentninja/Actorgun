@@ -23,8 +23,13 @@
 		</div>
 		<div class="corner">
 			<h2>{{part.name || "New Part"}}
-			<h2>{{part.version || "0.0.0"}}</h2>
+			<h2>{{part.version}}</h2>
 		</div>
+		<svg class="paths">
+			<template repeat="{{line in lines}}">
+				<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
+			</template>
+		</svg>
 	</template>
 	<script src="part-part.js"></script>
 </polymer-element>

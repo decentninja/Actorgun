@@ -10,6 +10,7 @@
 section.column {
 	width: 11em;
 	margin: 1em;
+	z-index: 5;
 }
 
 div.corner {
@@ -18,4 +19,18 @@ div.corner {
 	bottom: 0;
 	margin-left: 1em;
 	color: @part;
+}
+
+svg.paths {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+
+	line {
+		stroke: rgb(255,0,0);
+		stroke-width: 2;
+	}
 }

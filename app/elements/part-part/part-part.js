@@ -26,6 +26,10 @@ Polymer({
 	ready: function() {
 		this.calculateColumns()
 	},
+	lines: [{
+		from: [0, 0],
+		to: [200, 200]
+	}],
 	calculateColumns: function() {
 		/*
 			Places the parts the columns.
