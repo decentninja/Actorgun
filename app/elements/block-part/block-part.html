@@ -5,7 +5,6 @@
 <polymer-element name="block-part" attributes="part">
 	<template>
 		<link rel="stylesheet" href="block-part.css">
-		<div class="topcorner">{{part.version || "??"}} x</div>
 		<h3>{{part.name}}</h3>
 		<template repeat="{{input in part.inputs}}">
 			<div class="input">
