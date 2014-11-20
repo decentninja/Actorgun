@@ -4,19 +4,17 @@
 <polymer-element name="block-part" attributes="part">
 	<template>
 		<link rel="stylesheet" href="block-part.css">
-		<paper-shadow z="1">
-			<div class="topcorner">{{part.version || "??"}} x</div>
-			<h3>{{part.name}}</h3>
-			<template repeat="{{input in part.inputs}}">
-				<div class="input">{{input.type}} {{input.name}}</div>
-			</template>
-			<template if="{{part.inputs.length != 0 && part.outputs.length != 0}}">
-				<hr>
-			</template>
-			<template repeat="{{output in part.outputs}}">
-				<div class="output">{{output.name}} {{output.type}}</div>
-			</template>
-		</paper-shadow>
+		<div class="topcorner">{{part.version || "??"}} x</div>
+		<h3>{{part.name}}</h3>
+		<template repeat="{{input in part.inputs}}">
+			<div class="input">{{input.type}} {{input.name}}</div>
+		</template>
+		<template if="{{part.inputs.length != 0 && part.outputs.length != 0}}">
+			<hr>
+		</template>
+		<template repeat="{{output in part.outputs}}">
+			<div class="output">{{output.name}} {{output.type}}</div>
+		</template>
 	</template>
 	<script>
 		Polymer({})

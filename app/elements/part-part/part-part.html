@@ -7,10 +7,10 @@
 <script src="../../core/internal_part.js"></script>
 <script src="../../core/part_part.js"></script>
 
-<polymer-element name="part-part">
+<polymer-element name="part-part" vertical layout center>
 	<template>
 		<link rel="stylesheet" href="part-part.css">
-		<div horizontal layout>
+		<div class="container" horizontal layout center>
 			<template repeat="{{column in columns}}">
 				<section class="column">
 					<div vertical layout>
@@ -20,16 +20,16 @@
 					</div>
 				</section>
 			</template>
+			<svg class="paths">
+				<template repeat="{{line in lines}}">
+					<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
+				</template>
+			</svg>
 		</div>
 		<div class="corner">
 			<h2>{{part.name || "New Part"}}</h2>
 			<h2>{{part.version}}</h2>
 		</div>
-		<svg class="paths">
-			<template repeat="{{line in lines}}">
-				<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
-			</template>
-		</svg>
 	</template>
 	<script src="part-part.js"></script>
 </polymer-element>
