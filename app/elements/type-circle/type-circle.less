@@ -1,0 +1,31 @@
+@import "../../colorscheme.less";
+
+
+:host > svg {
+	width: 0.7em;
+	height: 0.7em;
+
+	.String {
+		fill: extract(@accents, 1);
+	}
+
+	.Number {
+		fill: extract(@accents, 2);
+	}
+
+	.Boolean {
+		fill: extract(@accents, 3);
+	}
+
+	.Array {
+		fill: extract(@accents, 4);
+	}
+
+	.Object {
+		fill: extract(@accents, 5);
+	}
+
+	.Unknown {
+		fill: extract(@accents, 6);
+	}
+}
