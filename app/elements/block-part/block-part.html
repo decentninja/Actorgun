@@ -1,5 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../type-circle/type-circle.html">
 
 <polymer-element name="block-part" attributes="part">
 	<template>
@@ -7,13 +8,16 @@
 		<div class="topcorner">{{part.version || "??"}} x</div>
 		<h3>{{part.name}}</h3>
 		<template repeat="{{input in part.inputs}}">
-			<div class="input">{{input.type}} {{input.name}}</div>
-		</template>
-		<template if="{{part.inputs.length != 0 && part.outputs.length != 0}}">
-			<hr>
+			<div class="input">
+				<type-circle type="{{input.type}}"></type-circle>
+				{{input.name}}
+			</div>
 		</template>
 		<template repeat="{{output in part.outputs}}">
-			<div class="output">{{output.name}} {{output.type}}</div>
+			<div class="output">
+				{{output.name}}
+				<type-circle type="{{output.type}}"></type-circle>
+			</div>
 		</template>
 	</template>
 	<script>

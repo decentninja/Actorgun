@@ -4,18 +4,34 @@
 :host {
 	background-color: @part;
 	color: @text;
-	padding: 0.5em;
+	padding: 1em;
 	margin: 0.5em;
 	position: relative;
 	box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
+	z-index: 10;
 }
 
 h3 {
 	margin: 0;
 }
 
+.input, .output {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.input > type-circle {
+	position: absolute;
+	left: -0.4em;
+}
+
 .output {
 	text-align: right;
+
+	type-circle {
+		position: absolute;
+		right: -0.4em;
+	}
 }
 
 .topcorner {
