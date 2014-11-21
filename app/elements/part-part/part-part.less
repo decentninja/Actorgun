@@ -8,23 +8,38 @@
 	left: 0;
 	position: fixed;
 	overflow: auto;
-	width: 100%;
-    height: 100%;
 	display: block;
+}
+
+* {
+	transition: all 0.5s;
+}
+
+div.topcorner {
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 1em;
+	z-index: 1000;
 }
 
 section.column {
 	width: 14em;
-	margin: 1em;
-	z-index: 5;
+
+	.editmode {
+		margin: 1em;
+	}
 }
 
 div.container {
-	height: 90%;
+	height: 0;
+	&.editmode {
+		height: 90%;
+	}
 }
 
 div.corner {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	bottom: 0;
 	margin-left: 1em;
@@ -37,7 +52,6 @@ svg.paths {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 1;
 
 	line {
 		stroke: extract(@accents, 1);

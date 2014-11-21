@@ -21,6 +21,14 @@ negative.outputs[0].connect(tre.inputs[1])
 
 
 Polymer({
+	editmode: "editmode",
+	switchmode: function() {
+		if(this.editmode) {
+			this.editmode = ""
+		} else {
+			this.editmode = "editmode"
+		}
+	},
 	part: partpart,
 	columns: [],
 	ready: function() {

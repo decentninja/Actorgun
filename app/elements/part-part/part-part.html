@@ -10,26 +10,33 @@
 <polymer-element name="part-part" vertical layout center>
 	<template>
 		<link rel="stylesheet" href="part-part.css">
-		<div class="container" horizontal layout center>
+		<div class="topcorner">
+			<button on-click="{{switchmode}}">Switch</button>
+		</div>
+		<div class="container {{editmode}}" horizontal layout>
+			<template if="{{editmode}}">
+				<svg class="paths">
+					<template repeat="{{line in lines}}">
+						<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
+					</template>
+				</svg>
+			</template>
 			<template repeat="{{column in columns}}">
-				<section class="column">
+				<section class="column {{editmode}}">
 					<div vertical layout>
 						<template repeat="{{subpart in column}}">
-							<block-part part="{{subpart}}"></block-part>
+							<block-part class="{{editmode}}" editmode="{{editmode}}" part="{{subpart}}"></block-part>
 						</template>
 					</div>
 				</section>
 			</template>
-			<svg class="paths">
-				<template repeat="{{line in lines}}">
-					<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
-				</template>
-			</svg>
 		</div>
-		<div class="corner">
-			<h2>{{part.name || "New Part"}}</h2>
-			<h2>{{part.version}}</h2>
-		</div>
+		<template if="{{editmode}}">
+			<div class="corner">
+				<h2>{{part.name || "New Part"}}</h2>
+				<h2>{{part.version}}</h2>
+			</div>
+		</template>
 	</template>
 	<script src="part-part.js"></script>
 </polymer-element>
