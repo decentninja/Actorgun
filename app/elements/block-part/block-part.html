@@ -5,9 +5,7 @@
 <polymer-element name="block-part" attributes="part editmode">
 	<template>
 		<link rel="stylesheet" href="block-part.css">
-		<template if="{{editmode}}">
-			<h3>{{part.name}}</h3>
-		</template>
+		<h3 class="{{editmode}}">{{part.name}}</h3>
 		<template repeat="{{input in part.inputs}}">
 			<div class="input">
 				<template if="{{editmode}}">

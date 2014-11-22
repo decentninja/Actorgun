@@ -8,6 +8,10 @@
 	position: relative;
 }
 
+* {
+	transition: all 0.5s;
+}
+
 :host(.editmode) {
 	box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
 	margin: 0.5em;
@@ -15,6 +19,10 @@
 
 h3 {
 	margin: 0;
+	opacity: 0;
+	&.editmode {
+		opacity: 1;
+	}
 }
 
 .input, .output {

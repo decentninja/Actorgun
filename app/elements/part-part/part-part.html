@@ -31,12 +31,10 @@
 				</section>
 			</template>
 		</div>
-		<template if="{{editmode}}">
-			<div class="corner">
-				<h2>{{part.name || "New Part"}}</h2>
-				<h2>{{part.version}}</h2>
-			</div>
-		</template>
+		<div class="corner {{editmode}}">
+			<h2>{{part.name || "New Part"}}</h2>
+			<h2>{{part.version}}</h2>
+		</div>
 	</template>
 	<script src="part-part.js"></script>
 </polymer-element>
