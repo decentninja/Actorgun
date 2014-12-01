@@ -6,6 +6,7 @@
 	color: @text;
 	padding: 1em;
 	position: relative;
+	box-shadow: 0;
 }
 
 * {
@@ -20,26 +21,38 @@
 h3 {
 	margin: 0;
 	opacity: 0;
+	line-height: 0em;
 	&.editmode {
+		line-height: 1em;
 		opacity: 1;
 	}
+}
+
+type-circle {
+	position: absolute;
 }
 
 .input, .output {
 	margin-top: 1em;
 	margin-bottom: 1em;
+	line-height: 1em;
+
+	&.hide {
+		opacity: 0;
+		line-height: 0em;
+	}
 }
 
-.input > type-circle {
-	position: absolute;
-	left: -0.4em;
+.input {
+	type-circle {
+		left: -0.4em;
+	}
 }
 
 .output {
 	text-align: right;
 
 	type-circle {
-		position: absolute;
 		right: -0.4em;
 	}
 }
