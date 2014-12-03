@@ -22,7 +22,7 @@
 				</svg>
 			</template>
 			<template repeat="{{column in columns}}">
-				<section class="column {{editmode}}">
+				<section class="column {{editmode}} {{(!editmode && full(column)) ? 'hide': ''}}">
 					<div vertical layout>
 						<template repeat="{{subpart in column}}">
 							<block-part class="{{editmode}}" editmode="{{editmode}}" part="{{subpart}}"></block-part>

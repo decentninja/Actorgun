@@ -4,7 +4,6 @@
 :host {
 	background-color: @part;
 	color: @text;
-	padding: 1em;
 	position: relative;
 	box-shadow: 0;
 }
@@ -16,6 +15,7 @@
 :host(.editmode) {
 	box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
 	margin: 0.5em;
+	padding: 1em;
 }
 
 h3 {
@@ -29,6 +29,7 @@ h3 {
 }
 
 type-circle {
+	opacity: 0;
 	position: absolute;
 }
 
@@ -37,7 +38,12 @@ type-circle {
 	margin-bottom: 1em;
 	line-height: 1em;
 
+	type-circle.editmode {
+		opacity: 1;
+	}
+
 	&.hide {
+		margin: 0;
 		opacity: 0;
 		line-height: 0em;
 	}

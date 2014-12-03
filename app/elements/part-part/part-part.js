@@ -38,6 +38,15 @@ Polymer({
 		from: [0, 0],
 		to: [200, 200]
 	}],
+	full: function(column) {
+		return column.every(function(part) {
+			return part.inputs.every(function(input) {
+				return input.connections.length != 0
+			}) && part.outputs.every(function(output) {
+				return output.connections.length != 0
+			})
+		})
+	},
 	calculateColumns: function() {
 		/*
 			Places the parts the columns.
