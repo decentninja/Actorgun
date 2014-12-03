@@ -23,10 +23,14 @@ negative.outputs[0].connect(tre.inputs[1])
 Polymer({
 	editmode: "editmode",
 	switchmode: function() {
+		var columnstyles = [].map.call(this.shadowRoot.querySelectorAll('.column'), function(o) {return o.style})
 		if(this.editmode) {
 			this.editmode = ""
+			var n = this.columns.map(this.full).filter(function(o) {return !o}).length
+			columnstyles.map(function(o) {o.width = 100 / n + "vw"})
 		} else {
 			this.editmode = "editmode"
+			columnstyles.map(function(o) {o.width = "14em"})
 		}
 	},
 	part: partpart,
