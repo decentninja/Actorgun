@@ -37,27 +37,68 @@ Polymer({
 		if(this.editmode) {
 			this.editmode = ""
 			var n = this.columns.map(this.full).filter(function(o) {return !o}).length
-			columnstyles.map(function(o) {o.width = 100 / n + "vw"})
+			var width = 100 / n + "vw"
 		} else {
 			this.editmode = "editmode"
-			columnstyles.map(function(o) {o.width = "14em"})
+			var width = "14em"
 		}
+		columnstyles.map(function(o) {
+			o.width = width
+		})
 	},
 	part: partpart,
 	columns: [],
 	ready: function() {
 		this.calculateColumns()
+		var that = this
+		setTimeout(function() {that.calculateLines()}, 0)
 	},
 	creatorline: {
 		from: [0, 0],
 		to: [0, 0],
 		type: null
 	},
-	lines: [{
-		from: [0, 0],
-		to: [200, 200],
-		type: null
-	}],
+	lines: [],
+	calculateLines: function() {
+		this.lines = []
+		var parts = this.shadowRoot.querySelectorAll("block-part")
+		var all_inputs = []
+		var all_outputs = []
+		;[].forEach.call(parts, function(part) {
+			var inputs = part.shadowRoot.querySelectorAll(".input > type-circle")
+			var outputs = part.shadowRoot.querySelectorAll(".output > type-circle")
+			;[].forEach.call(inputs, function(type_circle) {
+				all_inputs.push(type_circle)
+			})
+			;[].forEach.call(outputs, function(type_circle) {
+				all_outputs.push(type_circle)
+			})
+		})
+		console.log(all_inputs, all_outputs)
+		all_outputs.forEach(function(output) {
+			var output_rect = output.getBoundingClientRect()
+			output.interface.connections.forEach(function(input) {
+				var input_element
+				all_inputs.forEach(function(inda) {
+					if(input == inda.interface) {
+						input_element = inda
+					}
+				})
+				var input_rect = input_element.getBoundingClientRect()
+				this.lines.push({
+					from: [
+						output_rect.left + output_rect.width / 2,
+						output_rect.top + output_rect.height / 2
+					],
+					to: [
+						input_rect.left + output_rect.width / 2,
+						input_rect.top + output_rect.height / 2
+					],
+					type: output.interface.type
+				})
+			}, this)
+		}, this)
+	},
 	full: function(column) {
 		return column.every(function(part) {
 			return part.inputs.every(function(input) {
@@ -137,6 +178,7 @@ Polymer({
 			output.connect(input)
 			console.log("connected", input, output)
 			this.calculateColumns()
+			this.calculateLines()
 		}
 		this.creatorline = {
 			from: [0, 0],
