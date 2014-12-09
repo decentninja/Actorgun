@@ -11,14 +11,12 @@
 	<template>
 		<link rel="stylesheet" href="part-part.css">
 		<div class="container {{editmode}}" horizontal layout>
-			<template if="{{editmode}}">
-				<svg class="paths">
-					<line x1="{{creatorline.from[0]}}" y1="{{creatorline.from[1]}}" x2="{{creatorline.to[0]}}" y2="{{creatorline.to[1]}}" />
-					<template repeat="{{line in lines}}">
-						<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
-					</template>
-				</svg>
-			</template>
+			<svg class="paths {{editmode}}">
+				<line x1="{{creatorline.from[0]}}" y1="{{creatorline.from[1]}}" x2="{{creatorline.to[0]}}" y2="{{creatorline.to[1]}}" />
+				<template repeat="{{line in lines}}">
+					<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
+				</template>
+			</svg>
 			<template repeat="{{column in columns}}">
 				<section class="column {{editmode}} {{(!editmode && full(column)) ? 'hide': ''}}">
 					<div vertical layout>
