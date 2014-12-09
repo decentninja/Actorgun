@@ -16,14 +16,14 @@
 		</div>
 		<template repeat="{{input in part.inputs}}">
 			<div class="input {{(!editmode && input.connections.length != 0) ? 'hide' : ''}}">
-				<type-circle type="{{input.type}} {{editmode}}" class="{{editmode}}"></type-circle>
+				<type-circle interface="{{input}}" class="{{editmode}}"></type-circle>
 				{{input.name}}
 			</div>
 		</template>
 		<template repeat="{{output in part.outputs}}">
 			<div class="output {{(!editmode && output.connections.length != 0) ? 'hide' : ''}}">
 				{{output.name}}
-				<type-circle type="{{output.type}} {{editmode}}" class="{{editmode}}"></type-circle>
+				<type-circle interface="{{output}}" class="{{editmode}}"></type-circle>
 			</div>
 		</template>
 	</template>

@@ -48,9 +48,15 @@ Polymer({
 	ready: function() {
 		this.calculateColumns()
 	},
+	creatorline: {
+		from: [0, 0],
+		to: [0, 0],
+		type: null
+	},
 	lines: [{
 		from: [0, 0],
-		to: [200, 200]
+		to: [200, 200],
+		type: null
 	}],
 	full: function(column) {
 		return column.every(function(part) {
@@ -91,5 +97,50 @@ Polymer({
 		}
 		recursive(withoutDeps, 0)
 		this.columns.reverse()
+	},
+	start: function(e) {
+		this.creatorline = {
+			from: [e.x, e.y],
+			to: [e.x, e.y],
+			type: e.from.type
+		}
+	},
+	drag: function(e) {
+		if(e.x != 0) {	// Webkit bug at end of drag
+			this.creatorline.to = [e.x, e.y]
+		}
+	},
+	connector: {
+		from: null,
+		to: null,
+		position: [0, 0]
+	},
+	tagfrom: function(e) {
+		this.connector.from = e.detail
+	},
+	tagto: function(e) {
+		this.connector.to = e.detail.to
+		this.connector.position = e.detail.position
+	},
+	end: function(e) {
+		var xdiff = Math.abs(e.x - this.connector.position[0])
+		var ydiff = Math.abs(e.y - this.connector.position[1])
+		if(xdiff + ydiff < 40 && this.connector.from.way != this.connector.to.way) {
+			if(this.connector.from.way == "input" && this.connector.to.way == "output") {
+				var input = this.connector.from
+				var output = this.connector.to
+			}
+			if(this.connector.from.way == "output" && this.connector.to.way == "input") {
+				var output = this.connector.from
+				var input = this.connector.to
+			}
+			output.connect(input)
+			console.log("connected", input, output)
+			this.calculateColumns()
+		}
+		this.creatorline = {
+			from: [0, 0],
+			to: [0, 0]
+		}
 	}
 })

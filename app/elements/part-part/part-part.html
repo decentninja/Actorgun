@@ -16,6 +16,7 @@
 		<div class="container {{editmode}}" horizontal layout>
 			<template if="{{editmode}}">
 				<svg class="paths">
+					<line x1="{{creatorline.from[0]}}" y1="{{creatorline.from[1]}}" x2="{{creatorline.to[0]}}" y2="{{creatorline.to[1]}}" />
 					<template repeat="{{line in lines}}">
 						<line x1="{{line.from[0]}}" y1="{{line.from[1]}}" x2="{{line.to[0]}}" y2="{{line.to[1]}}" />
 					</template>
@@ -25,7 +26,16 @@
 				<section class="column {{editmode}} {{(!editmode && full(column)) ? 'hide': ''}}">
 					<div vertical layout>
 						<template repeat="{{subpart in column}}">
-							<block-part class="{{editmode}}" editmode="{{editmode}}" part="{{subpart}}"></block-part>
+							<block-part
+								on-dragstart="{{start}}"
+								on-drag="{{drag}}"
+								on-dragend="{{end}}"
+								on-tagfrom="{{tagfrom}}"
+								on-tagto="{{tagto}}"
+								class="{{editmode}}"
+								editmode="{{editmode}}"
+								part="{{subpart}}"
+							></block-part>
 						</template>
 					</div>
 				</section>

@@ -1,11 +1,24 @@
-<polymer-element name="type-circle" attributes="type">
+<polymer-element name="type-circle" attributes="interface">
 	<template>
 		<link rel="stylesheet" href="type-circle.css">
-		<svg>
-			<circle class="{{type || 'Unknown'}}" cx="0.35em" cy="0.35em" r="0.35em"/>
-		</svg>
+		<div draggable="true" on-dragstart="{{tagfrom}}" on-dragenter="{{tagto}}">
+			<svg>
+				<circle class="{{interface.type || 'Unknown'}}" cx="0.35em" cy="0.35em" r="0.35em"/>
+			</svg>
+		</div>
 	</template>
 	<script>
-		Polymer({})
+		Polymer({
+			tagfrom: function(e) {
+				e.from = this.interface
+				this.fire("tagfrom", this.interface)
+			},
+			tagto: function(e) {
+				this.fire("tagto", {
+					to: this.interface,
+					position: [e.x, e.y]
+				})
+			}
+		})
 	</script>
 </polymer-element>

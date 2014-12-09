@@ -4,6 +4,7 @@ if(typeof window === "undefined") {
 
 function Output(name, type) {
 	this.create(name, type)
+	this.way = "output"
 }
 
 Output.prototype = new Interface()

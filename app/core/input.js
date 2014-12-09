@@ -4,6 +4,7 @@ if(typeof window === "undefined") {
 
 function Input(name, type, default_value) {
 	this.create(name, type)
+	this.way = "input"
 	if(default_value !== undefined) {
 		this.data = default_value
 	}
