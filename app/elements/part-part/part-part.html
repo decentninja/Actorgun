@@ -10,9 +10,6 @@
 <polymer-element name="part-part" vertical layout center>
 	<template>
 		<link rel="stylesheet" href="part-part.css">
-		<div class="topcorner">
-			<button on-click="{{switchmode}}">Switch</button>
-		</div>
 		<div class="container {{editmode}}" horizontal layout>
 			<template if="{{editmode}}">
 				<svg class="paths">

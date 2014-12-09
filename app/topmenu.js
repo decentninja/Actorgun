@@ -114,10 +114,10 @@ function Topmenu(app) {
 	        }
 	      },
 	      {
-	        label: 'Toggle DevTools',
+	        label: 'Development Mode',
 	        accelerator: 'Alt+Command+I',
 	        click: function() {
-	        	that.devtools()
+	        	that.devmode()
 	        }
 	      },
 	    ]
@@ -158,8 +158,10 @@ Topmenu.prototype.reload = function() {
 	BrowserWindow.getFocusedWindow().reloadIgnoringCache()
 }
 
-Topmenu.prototype.devtools = function() {
-	BrowserWindow.getFocusedWindow().toggleDevTools()
+Topmenu.prototype.devmode = function() {
+	var window = BrowserWindow.getFocusedWindow()
+	window.toggleDevTools()
+	window.webContents.send("toggle-devmode")
 }
 
 Topmenu.prototype.close = function() {

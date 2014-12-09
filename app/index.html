@@ -12,5 +12,12 @@
 	</head>
 	<body fullbleed>
 		<part-part></part-part>
+		<script>
+			var ipc = require('ipc')
+
+			ipc.on('toggle-devmode', function() {
+				document.querySelector("part-part").switchmode()
+			})
+		</script>
 	</body>
 </html>
