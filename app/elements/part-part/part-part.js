@@ -12,6 +12,10 @@ negative.version = "1.0.0"
 var one = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
 one.documentation = "I'm the most to the left as I have no dependencies."
 one.name = "One"
+one.inputs[0].html.appendChild(document.createElement("input"))
+var input = document.createElement("input")
+input.style.width = "80%"
+one.outputs[0].html.appendChild(input)
 one.version = "1.0.0"
 var two = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
 two.documentation = "As I have one dependencie, and one dependie I should be in the center."

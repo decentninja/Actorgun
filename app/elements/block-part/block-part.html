@@ -17,17 +17,30 @@
 		<template repeat="{{input in part.inputs}}">
 			<div class="input {{(!editmode && input.connections.length != 0) ? 'hide' : ''}}">
 				<type-circle interface="{{input}}" class="{{editmode}}"></type-circle>
-				{{input.name}}
+				<span class="inputname">{{input.name}}</span>
+				<div class="custom"></div>
 			</div>
 		</template>
 		<template repeat="{{output in part.outputs}}">
 			<div class="output {{(!editmode && output.connections.length != 0) ? 'hide' : ''}}">
-				{{output.name}}
+				<div class="custom"></div>
+				<span class="outputname"> {{output.name}}</span>
 				<type-circle interface="{{output}}" class="{{editmode}}"></type-circle>
 			</div>
 		</template>
 	</template>
 	<script>
-		Polymer({})
+		Polymer({
+			ready: function() {
+				var input_customs = this.shadowRoot.querySelectorAll(".input .custom")
+				;[].forEach.call(this.part.inputs, function(input, i) {
+					input_customs[i].appendChild(input.html)
+				})
+				var output_customs = this.shadowRoot.querySelectorAll(".output .custom")
+				;[].forEach.call(this.part.outputs, function(output, i) {
+					output_customs[i].appendChild(output.html)
+				})
+			}
+		})
 	</script>
 </polymer-element>

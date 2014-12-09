@@ -13,7 +13,7 @@ function Input(name, type, default_value) {
 Input.prototype = new Interface()
 
 
-// Called by html representation or other parts
+// Called by other parts
 Input.prototype.fill = function(data) {
 	this.data = data
 	var that = this
