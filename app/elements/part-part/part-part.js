@@ -52,6 +52,9 @@ Polymer({
 		this.calculateColumns()
 		var that = this
 		setTimeout(function() {that.calculateLines()}, 0)
+		window.onresize = function() {
+			that.resize()
+		}
 	},
 	creatorline: {
 		from: [0, 0],
@@ -154,6 +157,9 @@ Polymer({
 		this.columns.reverse()
 	},
 	start: function(e) {
+		var img = document.createElement("img")
+		img.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"	// Tiny empty gif
+		e.dataTransfer.setDragImage(img, 0, 0);
 		this.creatorline = {
 			from: [e.x, e.y],
 			to: [e.x, e.y],
@@ -198,5 +204,8 @@ Polymer({
 			from: [0, 0],
 			to: [0, 0]
 		}
+	},
+	resize: function(e) {
+		this.calculateLines()
 	}
 })
