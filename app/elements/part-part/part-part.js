@@ -109,10 +109,20 @@ Polymer({
 	},
 	calculateColumns: function() {
 		/*
-			Places the parts the columns.
-			1. Finds parts that does not have any connected inputs.
-			2. Goes through the parts and adds parts that are not already in the columns, in the depth columns.
-			3. Connected parts from that part go to 2.
+			Places the parts the columns. We build it up backwards recursivly and then reverse it
+
+			i = 0
+			for each part that has no connected inputs
+				recurse i = 0
+			reverse columns
+			
+			where recurse is
+				if not added yet
+					add to column i
+					for each input
+						for each connection from that output
+							recurse with i+1
+
 		*/
 		this.columns = []
 		var withoutDeps = this.part.parts.filter(function(part) {
@@ -121,8 +131,11 @@ Polymer({
 			})
 		})
 		var that = this
-		function recursive(parts, icolumn) {
-			parts.forEach(function(part) {
+		function recursive(part, icolumn) {
+			var noaddedyet = that.columns.filter(function(column) {
+				return column.indexOf(part) != -1
+			}).length == 0
+			if(noaddedyet) {
 				if(that.columns[icolumn]) {
 					that.columns[icolumn].push(part)
 				} else {
@@ -130,12 +143,14 @@ Polymer({
 				}
 				part.inputs.forEach(function(input) {
 					input.connections.forEach(function(output) {
-						recursive([output.parent], icolumn + 1)
+						recursive(output.parent, icolumn + 1)
 					})
 				})
-			})
+			}
 		}
-		recursive(withoutDeps, 0)
+		withoutDeps.forEach(function(wd) {
+			recursive(wd, 0)
+		})
 		this.columns.reverse()
 	},
 	start: function(e) {
