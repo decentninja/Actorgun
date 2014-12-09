@@ -59,6 +59,13 @@ function Topmenu(app) {
 	  			}
 	  		},
 	  		{
+	  			label: "Development Mode",
+	  			accelerator: "Command+D",
+	  			click: function() {
+	  				that.devmode()
+	  			}
+	  		},
+	  		{
 	  			label: "Close Part",
 	  			accelerator: "Command+W",
 	  			selector: 'performClose:'
@@ -114,10 +121,10 @@ function Topmenu(app) {
 	        }
 	      },
 	      {
-	        label: 'Development Mode',
+	        label: 'Debug console',
 	        accelerator: 'Alt+Command+I',
 	        click: function() {
-	        	that.devmode()
+	        	that.devconsole()
 	        }
 	      },
 	    ]
@@ -158,10 +165,13 @@ Topmenu.prototype.reload = function() {
 	BrowserWindow.getFocusedWindow().reloadIgnoringCache()
 }
 
+Topmenu.prototype.devconsole = function() {
+	BrowserWindow.getFocusedWindow().toggleDevTools()
+	
+}
+
 Topmenu.prototype.devmode = function() {
-	var window = BrowserWindow.getFocusedWindow()
-	window.toggleDevTools()
-	window.webContents.send("toggle-devmode")
+	BrowserWindow.getFocusedWindow().webContents.send("toggle-devmode")
 }
 
 Topmenu.prototype.close = function() {
