@@ -27,7 +27,7 @@ partpart.addPart(tre)
 partpart.addPart(negative)
 one.outputs[0].connect(two.inputs[0])
 two.outputs[0].connect(tre.inputs[0])
-negative.outputs[0].connect(tre.inputs[1])
+
 
 
 Polymer({
@@ -74,7 +74,6 @@ Polymer({
 				all_outputs.push(type_circle)
 			})
 		})
-		console.log(all_inputs, all_outputs)
 		all_outputs.forEach(function(output) {
 			var output_rect = output.getBoundingClientRect()
 			output.interface.connections.forEach(function(input) {
@@ -176,9 +175,9 @@ Polymer({
 				var input = this.connector.to
 			}
 			output.connect(input)
-			console.log("connected", input, output)
 			this.calculateColumns()
-			this.calculateLines()
+			var that = this
+			setTimeout(function() {that.calculateLines()}, 0)
 		}
 		this.creatorline = {
 			from: [0, 0],

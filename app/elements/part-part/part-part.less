@@ -49,8 +49,9 @@ div.corner {
 	margin-left: 1em;
 	color: @part;
 	opacity: 0;
+
 	&.editmode {
-		opacity: 1;
+		opacity: 0.5;
 	}
 }
 
@@ -60,6 +61,7 @@ svg.paths {
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 100;
 
 	line {
 		stroke: extract(@accents, 1);
