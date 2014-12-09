@@ -6,7 +6,7 @@ Interface.prototype.create = function(name, type) {
 	this.parent = null
 	this.type = type		// Just a string that needs to match input and output
 	this.connections = []
-	if(document) {
+	if(typeof window !== "undefined") {
 		this.html = document.createElement("div")
 	} else {
 		this.html = null

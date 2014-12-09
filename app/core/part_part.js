@@ -25,6 +25,12 @@ PartPart.prototype.addPart = function(part) {
 	}, this)
 }
 
+PartPart.prototype.connect = function(output, input) {
+	output.connect(input)
+	this.removeOutput(output)
+	this.removeInput(input)
+}
+
 PartPart.prototype.removePart = function(part) {
 	// makes sure that all inputs and outputs have no other references
 	var i = this.parts.indexOf(part)

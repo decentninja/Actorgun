@@ -17,10 +17,18 @@ var input = document.createElement("input")
 input.style.width = "80%"
 one.outputs[0].html.appendChild(input)
 one.version = "1.0.0"
-var two = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
-two.documentation = "As I have one dependencie, and one dependie I should be in the center."
-two.name = "Two"
-two.version = "1.1.0"
+
+var two = new PartPart("Two", [])
+two.version = "WAAT"
+var twotwo = new InternalPart([new Input("Longer Name", "String")], [new Output("Loger", "String")], function() {})
+var ind = document.createElement("input")
+ind.type = "number"
+twotwo.inputs[0].html.appendChild(ind)
+two.addPart(twotwo)
+var bla = new InternalPart([new Input("Should not be seen", "String")], [new Output("Should not be seen", "String")], function() {})
+two.addPart(bla)
+two.connect(bla.outputs[0], bla.inputs[0])
+
 var tre = new InternalPart([new Input("In", "String"), new Input("In", "String")], [new Output("Out", "String")], function() {})
 tre.name = "Tre"
 tre.version = "0.0.5"
@@ -29,8 +37,8 @@ partpart.addPart(two)
 partpart.addPart(empty)
 partpart.addPart(tre)
 partpart.addPart(negative)
-one.outputs[0].connect(two.inputs[0])
-two.outputs[0].connect(tre.inputs[0])
+partpart.connect(one.outputs[0], two.inputs[0])
+partpart.connect(two.outputs[0], tre.inputs[0])
 
 
 
@@ -128,8 +136,8 @@ Polymer({
 					add to column i
 					for each input
 						for each connection from that output
+							go to the top-1 part and add that
 							recurse with i+1
-
 		*/
 		this.columns = []
 		var withoutDeps = this.part.parts.filter(function(part) {
@@ -150,7 +158,11 @@ Polymer({
 				}
 				part.inputs.forEach(function(input) {
 					input.connections.forEach(function(output) {
-						recursive(output.parent, icolumn + 1)
+						var part = output.parent
+						while(part.parent != that.part) {
+							part = part.parent
+						}
+						recursive(part, icolumn + 1)
 					})
 				})
 			}
@@ -199,7 +211,7 @@ Polymer({
 				var output = this.connector.from
 				var input = this.connector.to
 			}
-			output.connect(input)
+			this.part.connect(output, input)
 			this.calculateColumns()
 			var that = this
 			setTimeout(function() {that.calculateLines()}, 0)

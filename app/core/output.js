@@ -12,13 +12,7 @@ Output.prototype = new Interface()
 Output.prototype.connect = function(input) {
 	if(this.type === input.type) {
 		this.connections.push(input)
-		var parent = this.parent.parent
 		input.connections.push(this)
-		while(parent) {
-			parent.removeInput(input)
-			parent.removeOutput(this)
-			parent = parent.parent
-		}
 		if(this.data) {
 			input.fill(this.data)
 		}
@@ -28,6 +22,7 @@ Output.prototype.connect = function(input) {
 }
 
 Output.prototype.disconnect = function(input) {
+	// TODO wrong
 	var index = this.connections.indexOf(input)
 	var jndex = this.connections[index].connections.indexOf(this)
 	this.connections[index].connections.splice(jndex, 1)
