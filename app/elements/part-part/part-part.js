@@ -1,15 +1,25 @@
 // Sample data
 var partpart = new PartPart("Top", [])
+partpart.documentation = "I'm the sample part before loading of parts in implemented. This should be editable."
 var empty = new InternalPart([], [], function() {})
+empty.documentation = "I'm just an empty part that does nothing."
+empty.version = "1.0.0"
 empty.name = "Empty"
 var negative = new InternalPart([], [new Output("Out", "String")], function() {})
+negative.documentation = "I should be to the right."
 negative.name = "Negative"
+negative.version = "1.0.0"
 var one = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
+one.documentation = "I'm the most to the left as I have no dependencies."
 one.name = "One"
+one.version = "1.0.0"
 var two = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
+two.documentation = "As I have one dependencie, and one dependie I should be in the center."
 two.name = "Two"
+two.version = "1.1.0"
 var tre = new InternalPart([new Input("In", "String"), new Input("In", "String")], [new Output("Out", "String")], function() {})
 tre.name = "Tre"
+tre.version = "0.0.5"
 partpart.addPart(one)
 partpart.addPart(two)
 partpart.addPart(empty)

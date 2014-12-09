@@ -8,6 +8,7 @@ Part.prototype.create = function(name, inputs, outputs) {
 	this.name = name
 	this.version = null		// Null = no version, string version
 	this.noChanges()
+	this.documentation = ""
 	this.inputs = []
 	if(inputs) {
 		inputs.forEach(function(input) {

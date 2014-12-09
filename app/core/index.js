@@ -3,4 +3,5 @@ module.exports = {
 	Output: require("./output"),
 	InternalPart: require("./internal_part"),
 	PartPart: require("./part_part"),
+	Part: require("./part")
 }
