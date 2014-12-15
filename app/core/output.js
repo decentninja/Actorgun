@@ -22,17 +22,10 @@ Output.prototype.connect = function(input) {
 }
 
 Output.prototype.disconnect = function(input) {
-	// TODO wrong
 	var index = this.connections.indexOf(input)
 	var jndex = this.connections[index].connections.indexOf(this)
 	this.connections[index].connections.splice(jndex, 1)
 	this.connections.splice(index, 1)
-	var parent = this.parent.parent
-	while(parent) {
-		parent.addInput(input, false)
-		parent.addOutput(this, false)
-		parent = parent.parent
-	}
 }
 
 Output.prototype.fill = function(data) {
