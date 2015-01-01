@@ -51,8 +51,6 @@ div.corner {
 
 svg	{
 	opacity: 0;
-	pointer-events: none;
-	z-index: 10;
 
 	&.editmode {
 		opacity: 1;
@@ -67,7 +65,12 @@ svg.paths {
 	left: 0;
 
 	line {
+		transition: none;
 		stroke: extract(@accents, 1);
 		stroke-width: 2;
+		&:hover {
+			stroke-width: 3;
+			stroke: lighten(extract(@accents, 1), 10%);
+		}
 	}
 }

@@ -100,6 +100,8 @@ Polymer({
 				})
 				var input_rect = input_element.getBoundingClientRect()
 				this.lines.push({
+					input: input,
+					output: output.interface,
 					from: [
 						output_rect.left + output_rect.width / 2,
 						output_rect.top + output_rect.height / 2
@@ -198,6 +200,13 @@ Polymer({
 	tagto: function(e) {
 		this.connector.to = e.detail.to
 		this.connector.position = e.detail.position
+	},
+	removeline: function(event, detail, sender) {
+		var line = this.lines[parseInt(sender.dataset.line)]
+		console.log(line)
+		this.part.disconnect(line.output, line.input)
+		this.calculateColumns()
+		this.calculateLines()
 	},
 	end: function(e) {
 		var xdiff = Math.abs(e.x - this.connector.position[0])
