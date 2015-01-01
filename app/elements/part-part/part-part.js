@@ -1,45 +1,57 @@
 // Sample data
+function create_add() {
+	// javascriptPart with nothing filled
+	var part = new InternalPart(
+		[new Input("a", "number", 1), new Input("b", "number", 1)],
+		[new Output("c", "number")],
+		function() {
+			var a, b
+			var that = this
+			var a_input = document.createElement("input")
+			this.inputs[0].html.appendChild(a_input)
+			var b_input = document.createElement("input")
+			this.inputs[1].html.appendChild(b_input)
+			var c_result = document.createElement("p")
+			c_result.innerHTML = "bla"
+			this.outputs[0].html.appendChild(c_result)
+
+			function update_c() {
+				if(a && b) {
+					var result = parseInt(a) + parseInt(b)
+					c_result.innerHTML = result
+					that.send("c", result)
+				}
+			}
+			function update_a(aa) {
+				a = aa
+				a_input.value = aa
+				update_c()
+			}
+			this.receive("a", update_a)
+			function update_b(bb) {
+				b_input.value = bb
+				b = bb
+				update_c()
+			}
+			this.receive("b", update_b)
+			a_input.onkeyup = function() {
+				update_a(a_input.value)
+			}
+			b_input.onkeyup = function() {
+				update_b(b_input.value)
+			}
+		}
+	)
+	part.name = "Add"
+	return part
+}
+
 var partpart = new PartPart("Top", [])
 partpart.documentation = "I'm the sample part before loading of parts in implemented. This should be editable."
-var empty = new InternalPart([], [], function() {})
-empty.documentation = "I'm just an empty part that does nothing."
-empty.version = "1.0.0"
-empty.name = "Empty"
-var negative = new InternalPart([], [new Output("Out", "String")], function() {})
-negative.documentation = "I should be to the right."
-negative.name = "Negative"
-negative.version = "1.0.0"
-var one = new InternalPart([new Input("In", "String")], [new Output("Out", "String")], function() {})
-one.documentation = "I'm the most to the left as I have no dependencies."
-one.name = "One"
-one.inputs[0].html.appendChild(document.createElement("input"))
-var input = document.createElement("input")
-input.style.width = "80%"
-one.outputs[0].html.appendChild(input)
-one.version = "1.0.0"
 
-var two = new PartPart("Two", [])
-two.version = "WAAT"
-var twotwo = new InternalPart([new Input("Longer Name", "String")], [new Output("Loger", "String")], function() {})
-var ind = document.createElement("input")
-ind.type = "number"
-twotwo.inputs[0].html.appendChild(ind)
-two.addPart(twotwo)
-var bla = new InternalPart([new Input("Should not be seen", "String")], [new Output("Should not be seen", "String")], function() {})
-two.addPart(bla)
-two.connect(bla.outputs[0], bla.inputs[0])
-
-var tre = new InternalPart([new Input("In", "String"), new Input("In", "String")], [new Output("Out", "String")], function() {})
-tre.name = "Tre"
-tre.version = "0.0.5"
-partpart.addPart(one)
-partpart.addPart(two)
-partpart.addPart(empty)
-partpart.addPart(tre)
-partpart.addPart(negative)
-partpart.connect(one.outputs[0], two.inputs[0])
-partpart.connect(two.outputs[0], tre.inputs[0])
-
+partpart.addPart(create_add())
+partpart.addPart(create_add())
+partpart.addPart(create_add())
 
 
 Polymer({
